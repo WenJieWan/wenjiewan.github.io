@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android," />
+  <meta name="keywords" content="hadoop," />
 
 
 
@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="#这里是正文，用markdown写">
-<meta name="keywords" content="android">
+<meta name="description" content="首先介绍的是搭建单机伪分布版的Hadoop">
+<meta name="keywords" content="hadoop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="定制向外延伸直线+文字的饼图">
-<meta property="og:url" content="http://yoursite.com/2017/05/27/circle-pie/index.html">
+<meta property="og:title" content="校园网络流量监控系统之搭建Hadoop">
+<meta property="og:url" content="http://yoursite.com/2017/05/27/hadoop-study/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="#这里是正文，用markdown写">
-<meta property="og:updated_time" content="2017-06-04T12:54:44.932Z">
+<meta property="og:description" content="首先介绍的是搭建单机伪分布版的Hadoop">
+<meta property="og:updated_time" content="2017-06-04T12:32:17.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="定制向外延伸直线+文字的饼图">
-<meta name="twitter:description" content="#这里是正文，用markdown写">
+<meta name="twitter:title" content="校园网络流量监控系统之搭建Hadoop">
+<meta name="twitter:description" content="首先介绍的是搭建单机伪分布版的Hadoop">
 
 
 
@@ -132,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/27/circle-pie/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/27/hadoop-study/"/>
 
 
 
 
 
-  <title>定制向外延伸直线+文字的饼图 | 个人博客</title>
+  <title>校园网络流量监控系统之搭建Hadoop | 个人博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -278,7 +278,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/27/circle-pie/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/27/hadoop-study/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="万文杰">
@@ -295,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">定制向外延伸直线+文字的饼图</h1>
+          <h1 class="post-title" itemprop="name headline">校园网络流量监控系统之搭建Hadoop</h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">安卓</span>
+                  <a href="/categories/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
                   </a>
                 </span>
 
@@ -364,8 +364,157 @@
       
 
       
-        <p>#这里是正文，用markdown写<br><a id="more"></a></p>
-<h2 id="内容展示区。"><a href="#内容展示区。" class="headerlink" title="内容展示区。"></a>内容展示区。</h2>
+        <h1 id="首先介绍的是搭建单机伪分布版的Hadoop"><a href="#首先介绍的是搭建单机伪分布版的Hadoop" class="headerlink" title="首先介绍的是搭建单机伪分布版的Hadoop"></a>首先介绍的是搭建单机伪分布版的Hadoop</h1><a id="more"></a>
+<p>SSH配置：</p>
+<pre><code>（注意：如果没有SSH可以安装，可在root下安装）
+
+（1）yum install ssh
+
+     安装SSH协议
+
+（2）yum install rsync （rsync是一个远程数据同步工具，可通过LAN/WAN
+
+ 快速同步多台主机间的文件）
+
+（3）service sshd restart
+
+     启动服务
+
+     安装Hadoop
+
+     把hadoop-2.6.0.tar.gz放到/usr/local 目录下，进入/usr/local目录，解
+
+  压安装包
+
+     tar -zxvf hadoop-2.6.0.tar.gz
+
+  将&amp;quot;hadoop-2.6.0&amp;quot;文件夹重命名为&amp;quot;hadoop&amp;quot;
+
+     mv hadoop-2.6.0 hadoop
+
+  在&amp;quot;/usr/local/hadoop&amp;quot;创建&amp;quot;tmp&amp;quot;文件夹
+
+     mkdir /usr/local/hadoop/tmp
+
+  配置&amp;quot;/etc/profile&amp;quot;，配置信息如下
+
+     vim /etc/profile
+
+（信息如下：）
+
+     # set hadoop path
+
+     export HADOOP\_HOME=/usr/local/hadoop
+
+     export PATH=$PATH:$HADOOP\_HOME/bin
+
+（5）配置Hadoop：
+
+     vim /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+
+  配置hadoop-env.sh文件，注意它的目录，配置信息在下面
+
+    （注：信息如下所示）
+
+     # set java environment
+
+     export JAVA\_HOME=/usr/local/java/jdk1.7.0\_51
+
+  接下来配置其他文件：/usr/local/hadoop/etc/hadoop所有需要配置的文
+
+  件都在这个路径下
+
+     vim core-site.xml
+
+  配置core-site.xml
+
+ （注：修改配置信息如下所示）
+</code></pre><table>
+<thead>
+<tr>
+<th>&lt;configuration&gt;&lt;property&gt;    &lt;name&gt;fs.defaultFS&lt;/name&gt;    &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;&lt;/property&gt;&lt;property&gt;    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;    &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;    &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;&lt;/property&gt;&lt;/configuration&gt; vim hdfs-site.xml</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code> 配置hdfs-site.xml
+
+（注：修改配置信息如下所示）
+</code></pre><table>
+<thead>
+<tr>
+<th>&lt;configuration&gt;&lt;property&gt;    &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;    &lt;value&gt;localhost:50090&lt;/value&gt;&lt;/property&gt;&lt;property&gt;    &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;    &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/name&lt;/value&gt;&lt;/property&gt;&lt;property&gt;    &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;    &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/data&lt;/value&gt;&lt;/property&gt;&lt;property&gt;    &lt;name&gt;dfs.replication&lt;/name&gt;    &lt;value&gt;1&lt;/value&gt;&lt;/property&gt;&lt;/configuration&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code> 文件mapred-site.xml，这个文件不存在，首先需要从模板中复制一份
+
+     cp mapred-site.xml.template mapred-site.xml
+
+ vim mapred-site.xml
+
+ 配置mapred-site.xml
+
+（注：修改配置信息如下所示）
+</code></pre><table>
+<thead>
+<tr>
+<th>&lt;configuration&gt;&lt;property&gt;    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;    &lt;value&gt;yarn&lt;/value&gt;&lt;/property&gt;&lt;/configuration&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code> vim yarn-site.xml
+
+ 配置yarn-site.xml
+
+（注：修改配置信息如下所示）
+</code></pre><table>
+<thead>
+<tr>
+<th>&lt;configuration&gt;&lt;property&gt;    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;    &lt;value&gt;Master&lt;/value&gt;&lt;/property&gt;&lt;property&gt;    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;&lt;/property&gt;&lt;/configuration&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code>配置结束，启动Hadoop，在/usr/local/hadoop目录下输入命令行
+
+sbin/start-all.sh
+
+若启动失败请关闭防火墙再尝试：service iptables stop
+
+bin/hdfs dfsadmin -report
+
+检查是否成功，查看Hadoop集群的状态
+
+http://master:50070/
+
+通过Web页面看到查看DataNode和NameNode的状态
+
+http://master:8088/cluster
+
+通过Web界面查看任务进度
+
+关闭Hadoop：sbin/stop-all.sh
+</code></pre><hr>
+
       
     </div>
 
@@ -394,7 +543,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"># android</a>
+            <a href="/tags/hadoop/" rel="tag"># hadoop</a>
           
         </div>
       
@@ -407,8 +556,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/27/hadoop-study/" rel="next" title="校园网络流量监控系统之搭建Hadoop">
-                <i class="fa fa-chevron-left"></i> 校园网络流量监控系统之搭建Hadoop
+              <a href="/2017/05/27/person-message/" rel="next" title="person-message">
+                <i class="fa fa-chevron-left"></i> person-message
               </a>
             
           </div>
@@ -416,6 +565,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/27/circle-pie/" rel="prev" title="定制向外延伸直线+文字的饼图">
+                定制向外延伸直线+文字的饼图 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -564,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容展示区。"><span class="nav-number">1.</span> <span class="nav-text">内容展示区。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#首先介绍的是搭建单机伪分布版的Hadoop"><span class="nav-number">1.</span> <span class="nav-text">首先介绍的是搭建单机伪分布版的Hadoop</span></a></li></ol></div>
             
 
           </div>
