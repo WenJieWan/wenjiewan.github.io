@@ -1,0 +1,919 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="design-pattern," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="单例模式是我们最常见的设计模式之一。由于设计模式在面向对象程序设计中起着举足轻重的作用，在许多的开源的数据库持久层框架中被采用，比如大名鼎鼎的Hibernate，HibernateSessionFactory 就是一个单例，因为这个SessionFactory是hibernate 的重量级缓存，一般只要加载一次。">
+<meta name="keywords" content="design-pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="23种设计模式之（一）单例模式">
+<meta property="og:url" content="http://yoursite.com/2017/05/27/design-pattern-singleton/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="单例模式是我们最常见的设计模式之一。由于设计模式在面向对象程序设计中起着举足轻重的作用，在许多的开源的数据库持久层框架中被采用，比如大名鼎鼎的Hibernate，HibernateSessionFactory 就是一个单例，因为这个SessionFactory是hibernate 的重量级缓存，一般只要加载一次。">
+<meta property="og:updated_time" content="2017-06-06T05:16:48.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="23种设计模式之（一）单例模式">
+<meta name="twitter:description" content="单例模式是我们最常见的设计模式之一。由于设计模式在面向对象程序设计中起着举足轻重的作用，在许多的开源的数据库持久层框架中被采用，比如大名鼎鼎的Hibernate，HibernateSessionFactory 就是一个单例，因为这个SessionFactory是hibernate 的重量级缓存，一般只要加载一次。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/27/design-pattern-singleton/"/>
+
+
+
+
+
+  <title>23种设计模式之（一）单例模式 | 个人博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生如逆旅，我亦是行人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/27/design-pattern-singleton/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="万文杰">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">23种设计模式之（一）单例模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-27T19:23:26+08:00">
+                2017-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>单例模式是我们最常见的设计模式之一。由于设计模式在面向对象程序设计中起着举足轻重的作用，在许多的开源的数据库持久层框架中被采用，比如大名鼎鼎的Hibernate，HibernateSessionFactory 就是一个单例，因为这个SessionFactory是hibernate 的重量级缓存，一般只要加载一次。<br><a id="more"></a></p>
+<h3 id="什么是单例模式？"><a href="#什么是单例模式？" class="headerlink" title="什么是单例模式？"></a>什么是单例模式？</h3><p>单例模式指的是核心结构中只包含一个被称为单例的特殊类。通过单例模式可以保证系统中一个类只有一个实例。即一个类只有一个对象实例。</p>
+<h3 id="为什么我们要采用这种单例模式呢？"><a href="#为什么我们要采用这种单例模式呢？" class="headerlink" title="为什么我们要采用这种单例模式呢？"></a>为什么我们要采用这种单例模式呢？</h3><p>举个场景例子：如果登录一个网站，每个用户登录，后台数据库连接都要生成（new）一个实例对象进行增删改查，如果有多个用户同时访问，意味着要new多个实例对象，这样不仅使服务器性能下降，而且占用内存会越来越大，线程越多，占用内存越大。所以如果我们把数据库连接池这块的实例对象设计成单例模式，从始至终只new过一次每次重复使用，这样就可以大幅度显著地降低内存的开销，提高服务器性能。这对于高并发web的响应速度有益处。</p>
+<h3 id="基于java实现的多种单例模式介绍"><a href="#基于java实现的多种单例模式介绍" class="headerlink" title="基于java实现的多种单例模式介绍"></a>基于java实现的多种单例模式介绍</h3><h4 id="最简单实现-性能隐患"><a href="#最简单实现-性能隐患" class="headerlink" title="最简单实现(性能隐患)"></a>最简单实现(性能隐患)</h4><p>首先，能够想到的最简单的实现是，把类的构造函数写成private的，从而保证别的类不能实例化此类，然后在类中提供一个静态的实例并能够返回给使用者。这样，使用者就可以通过这个引用使用到这个类的实例了。</p>
+<pre>
+    <code>
+public class Singleton {
+
+    private static final Singleton instance = new Singleton();
+
+    public static Singleton getInstance() {
+        return instance;
+    }
+
+    private Singleton() {
+    }
+}
+    </code>
+</pre>
+
+<p>效果：外部使用者如果需要使用SingletonClass的实例，只能通过getInstance()方法，并且它的构造方法是private的，这样就保证了只能有一个对象存在。</p>
+<p>隐患：上面的代码虽然简单，但是有一个问题——无论这个类是否被使用，都会创建一个instance对象。如果这个创建过程很耗时，比如需要连接10000次数据库，并且这个类还并不一定会被使用，那么这个创建过程就是无用的。怎么办呢？</p>
+<p>优化:采用 lazy loaded 方式（懒汉式加载）简称懒加载。</p>
+<h4 id="只适用于单线程环境（懒汉式加载，线程不安全）"><a href="#只适用于单线程环境（懒汉式加载，线程不安全）" class="headerlink" title="只适用于单线程环境（懒汉式加载，线程不安全）"></a>只适用于单线程环境（懒汉式加载，线程不安全）</h4><pre>
+    <code>
+public class Singleton {
+
+    private static Singleton instance = null;
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    private Singleton() {
+    }
+}
+    </code>
+</pre>
+首先，把instance初始化为null，直到第一次使用的时候通过判断是否为null来创建对象，因为创建过程不在声明处，所以那个final的修饰必须去掉。<br>
+执行过程：要使用SingletonClass，调用getInstance()方法。第一次的时候发现instance是null，然后就新建一个对象，返回出去；第二次再使用的时候，因为这个instance是static的，所以已经不是null了，因此不会再创建对象，直接将其返回。<br>
+
+潜藏隐患：线程A希望使用Singleton，调用getInstance()方法。因为是第一次调用，A就发现instance是null的，于是它开始创建实例，就在这个时候，CPU发生时间片切换，线程B开始执行，它要使用Singleton，调用getInstance()方法，同样检测到instance是null——注意，这是在A检测完之后切换的，也就是说A并没有来得及创建对象——因此B开始创建。B创建完成后，切换到A继续执行，因为它已经检测完了，所以A不会再检测一遍，它会直接创建对象。这样，线程A和B各自拥有一个Singleton的对象——单例失败！<br>
+针对这种多线程造成的不同步问题的解决方式当然是采用同步加锁啦！<br>
+
+#### 多线程环境下同步方法加锁但效率低（懒汉式加载，线程安全）
+<pre>
+    <code>
+public class Singleton {
+    private static Singleton instance = null;
+
+    public static synchronized Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    private Singleton() {
+    }
+}
+    </code>
+</pre>
+
+<p>效果：给getInstance()加上同步锁，一个线程必须等待另外一个线程创建完成后才能使用这个方法，这就保证了单例的唯一性。</p>
+<p>但是又引入的性能隐患：synchronized修饰的同步块可是要比一般的代码段慢上几倍的！如果存在很多次getInstance()的调用，那性能问题就不得不考虑了！一般在实际开发中同步加锁都应用到原子级别，原子级别就是指细化到关键代码语句，如果一个50行代码的方法内只有关键几行需要加锁控制，其他代码并不影响运行结果，那么就没有必要对方法内所有代码进行加锁，让不影响的代码语句都能执行只在关键处进行等待，这样将执行耗时降到最低！</p>
+<h4 id="多线程原子级别同步加锁（懒汉式加载，线程安全）"><a href="#多线程原子级别同步加锁（懒汉式加载，线程安全）" class="headerlink" title="多线程原子级别同步加锁（懒汉式加载，线程安全）"></a>多线程原子级别同步加锁（懒汉式加载，线程安全）</h4><pre>
+    <code>
+public class Singleton { 
+  private static Singleton instance = null; 
+
+  public static Singleton getInstance() { 
+    synchronized (Singleton.class) { 
+      if(instance == null) { 
+        instance = new Singleton(); 
+      } 
+    }     
+    return instance; 
+  } 
+
+  private Singleton() {  
+  } 
+
+}    
+    </code>
+</pre>
+
+<p>效果：看似我们在同步锁这块已经尽力提高性能了，其实性能的问题还是存在的。虽然我们将同步级别降到原子级，但是每次方法的调用还是要进行同步。</p>
+<p>优化：经过观察，其实每次调用方法没有必要都去同步加锁，一般发生多次new的情况都是第一次未初始化的时候并发造成的内存浪费，所以在同步锁外再加一个IF判断就可以避免同步造成的性能问题了。</p>
+<h4 id="双重检查锁定模式-double-checked-locking（懒汉式加载，线程安全）"><a href="#双重检查锁定模式-double-checked-locking（懒汉式加载，线程安全）" class="headerlink" title="双重检查锁定模式 double-checked locking（懒汉式加载，线程安全）"></a>双重检查锁定模式 double-checked locking（懒汉式加载，线程安全）</h4><pre>
+    <code>
+public class Singleton { 
+  private static Singleton instance = null; 
+
+  public static Singleton getInstance() { 
+      if(instance == null) { 
+        synchronized (Singleton.class) { 
+          if(instance == null) { 
+            instance = new Singleton(); 
+          } 
+        }    
+     }  
+    return instance; 
+  } 
+
+  private Singleton() {  
+  } 
+
+}    
+    </code>
+</pre>
+
+<p>还有问题吗？我们再走一遍过程：首先判断instance是不是为null，如果为null，加锁初始化；如果不为null，直接返回instance。<br>到此为止，一切都很完美。我们用一种很聪明的方式实现了单例模式。</p>
+<h4 id="JDK5-之后-volatile实现的单例模式"><a href="#JDK5-之后-volatile实现的单例模式" class="headerlink" title="JDK5 之后 volatile实现的单例模式"></a>JDK5 之后 volatile实现的单例模式</h4><p>在JDK 5之后，Java使用了新的内存模型。volatile关键字有了明确的语义——在JDK1.5之前，volatile是个关键字，但是并没有明确的规定其用途——被volatile修饰的写变量不能和之前的读写代码调整，读变量不能和之后的读写代码调整！因此，只要我们简单的把instance加上volatile关键字就可以了。</p>
+<pre>
+    <code>
+public class Singleton { 
+  private volatile static Singleton instance = null; 
+
+  public static Singleton getInstance() { 
+    if (instance == null) { 
+      synchronized (Singleton.class) { 
+        if(instance == null) { 
+          instance = new Singleton(); 
+        } 
+      } 
+    } 
+    return instance; 
+  } 
+
+  private Singleton() { 
+  } 
+
+}
+    </code>
+</pre>
+
+<p>隐患：但是存在版本问题！</p>
+<h4 id="最简单实现不受版本影响（静态内部类，线程安全）"><a href="#最简单实现不受版本影响（静态内部类，线程安全）" class="headerlink" title="最简单实现不受版本影响（静态内部类，线程安全）"></a>最简单实现不受版本影响（静态内部类，线程安全）</h4><pre>
+    <code>
+public class Singleton { 
+
+  private static class SingletonInstance { 
+    private static final Singleton instance = new Singleton(); 
+  } 
+
+  public static Singleton getInstance() { 
+    return SingletonInstance.instance; 
+  } 
+
+  private Singleton() { 
+  } 
+
+}
+    </code>
+</pre>
+
+<p>总结：在这一版本的单例模式实现代码中，我们使用了Java的静态内部类。这一技术是被JVM明确说明了的，因此不存在任何二义性。在这段代码中，因为SingletonClass没有static的属性，因此并不会被初始化。直到调用getInstance()的时候，会首先加载SingletonClassInstance类，这个类有一个static的SingletonClass实例，因此需要调用SingletonClass的构造方法，然后getInstance()将把这个内部类的instance返回给使用者。由于这个instance是static的，因此并不会构造多次。</p>
+<p>由于SingletonClassInstance是私有静态内部类，所以不会被其他类知道，同样，static语义也要求不会有多个实例存在。并且，JSL规范定义，类的构造必须是原子性的，非并发的，因此不需要加同步块。同样，由于这个构造是并发的，所以getInstance()也并不需要加同步。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/design-pattern/" rel="tag"># design-pattern</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/27/hadoop-study/" rel="prev" title="校园网络流量监控系统之搭建Hadoop">
+                校园网络流量监控系统之搭建Hadoop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="万文杰" />
+          <p class="site-author-name" itemprop="name">万文杰</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/WenJieWan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/u/2813992720" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是单例模式？"><span class="nav-number">1.</span> <span class="nav-text">什么是单例模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么我们要采用这种单例模式呢？"><span class="nav-number">2.</span> <span class="nav-text">为什么我们要采用这种单例模式呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于java实现的多种单例模式介绍"><span class="nav-number">3.</span> <span class="nav-text">基于java实现的多种单例模式介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最简单实现-性能隐患"><span class="nav-number">3.1.</span> <span class="nav-text">最简单实现(性能隐患)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#只适用于单线程环境（懒汉式加载，线程不安全）"><span class="nav-number">3.2.</span> <span class="nav-text">只适用于单线程环境（懒汉式加载，线程不安全）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程原子级别同步加锁（懒汉式加载，线程安全）"><span class="nav-number">3.3.</span> <span class="nav-text">多线程原子级别同步加锁（懒汉式加载，线程安全）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双重检查锁定模式-double-checked-locking（懒汉式加载，线程安全）"><span class="nav-number">3.4.</span> <span class="nav-text">双重检查锁定模式 double-checked locking（懒汉式加载，线程安全）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK5-之后-volatile实现的单例模式"><span class="nav-number">3.5.</span> <span class="nav-text">JDK5 之后 volatile实现的单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最简单实现不受版本影响（静态内部类，线程安全）"><span class="nav-number">3.6.</span> <span class="nav-text">最简单实现不受版本影响（静态内部类，线程安全）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">万文杰</span>
+</div>
+
+
+<div class="powered-by">
+   <a class="theme-link" href="#">wwj</a> 个人专属
+</div>
+
+<div class="theme-info">
+  博客 -
+  <a class="theme-link" href="#">
+    万文杰
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.2/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.2/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
