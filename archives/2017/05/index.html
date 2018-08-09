@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
+    
+    <title>文章归档: 2017/5 | 个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" >
+    <meta name="keywords" content="前端, Web, 后端,ML" >
+    <meta name="description" content="万文杰的个人小站" >
+
+    
+    <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml" >
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" >
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?fd459238242776d173cdc64918fb32f2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</head>
+
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">个人博客</span>
+                    <span class="description">人生如逆旅，我亦是行人</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/archives/2017/05/index.html" class="item ">
+                <a href="/" title="首页" class="icon-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/archives/2017/05/index.html" class="item ">
+                <a href="/lab/" title="实验室" class="icon-lab">&nbsp;实验室</a>
+            </li>
+            
+            <li rel="/archives/2017/05/index.html" class="item ">
+                <a href="/about/" title="关于" class="icon-about">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/archives/2017/05/index.html" class="item ">
+                <a href="/comment/" title="留言" class="icon-comment">&nbsp;留言</a>
+            </li>
+            
+        </ul>
+        <div class="profile clearfix">
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/WenJieWan" target="_blank">Github</a>
+                        |
+                    
+                        <a href="https://pages.coding.me" target="_blank">Hosted by Coding Pages</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://www.weibo.com/u/2813992720" class="sinaweibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                    <!-- <a href="javascript: void(0);" class="wechat">
+                        <b>■</b>
+                        公众号
+                        <span class="popover">
+                            <img src="/img/wechat_mp.jpg" width="120" height="120" alt="我的微信订阅号">
+                            <i class="arrow"></i>
+                        </span>
+                    </a> -->
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/img/wwj.jpg" alt="avatar" title="Jelon" >
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章归档 -->
+
+    <h3 class="widget-hd">
+        <strong>
+            
+                文章归档
+            
+        </strong>
+    </h3>
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/Jvm/">Jvm</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/jvm_of_reference/">
+    		深入JVM之Java引用类型
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T12:25:22.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/jvm/" title="jvm">jvm</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <p><center><br>深入JVM之Java引用类型<br></center><br>引用类型可以说是整个Java开发的灵魂所在，如果没有合理的引用操作，那么就有可能产生垃圾问题，但是对于引用也需要有一些合理化的设计。在很多的时候并不是所有的对象都需要被我们一直使用，那么就需要对引用的问题做进一步的思考。从JDK1.2之后关于引用提出了四种方案：<br>●强引用：当内存不足的时候，JVM宁可出现OutOfMemory错误停止，也需要进行保存，并且不会将此空间回收；<br>●软引用：当内存不足的时候，进行对象的回收处理，往往用于高速缓存中；<br>●弱引用：不管内存是否紧张，只要由垃圾产生了，那么立即回收；<br>●幽灵引用：和没有引用是一样的。<br>
+            
+            <p class="more">
+                <a href="/2017/05/27/jvm_of_reference/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/jvm_of_reference/" title="深入JVM之Java引用类型">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/algorithm/">算法设计与分析</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/at-offer/">
+    		剑指Offer 66 解之Java实现
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T12:23:26.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/BinarySearch/" title="BinarySearch">BinarySearch</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <center><br>序列：<br>1.二维数组中的查找<br>2.替换空格<br>3.从尾到头打印链表<br>4.重建二叉树<br>5.用两个栈实现队列<br>6.旋转数组的最小数字<br>7.斐波那契数列<br>8.跳台阶<br>9.变态跳台阶<br>10.矩形覆盖<br>11.二进制中1的个数<br>12.数值的整数次方<br>13.调整数组顺序使奇数位于偶数前面<br>…………………….<br>
+            
+            <p class="more">
+                <a href="/2017/05/27/at-offer/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/at-offer/" title="剑指Offer 66 解之Java实现">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/设计模式/">设计模式</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/design-pattern-singleton/">
+    		23种设计模式之（一）单例模式
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T12:23:25.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/design-pattern/" title="design-pattern">design-pattern</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <p>单例模式是我们最常见的设计模式之一。由于设计模式在面向对象程序设计中起着举足轻重的作用，在许多的开源的数据库持久层框架中被采用，比如大名鼎鼎的Hibernate，HibernateSessionFactory 就是一个单例，因为这个SessionFactory是hibernate 的重量级缓存，一般只要加载一次。<br>
+            
+            <p class="more">
+                <a href="/2017/05/27/design-pattern-singleton/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/design-pattern-singleton/" title="23种设计模式之（一）单例模式">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/数据库/">数据库</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/database-mysql/">
+    		Mysql的事务隔离级别
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T12:23:24.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/database/" title="database">database</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <center><br>Mysql共有不得不知的四级隔离级别<br></center><br>
+            
+            <p class="more">
+                <a href="/2017/05/27/database-mysql/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/database-mysql/" title="Mysql的事务隔离级别">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/Java/">Java</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/java-collection/">
+    		Java集合知识总结
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T12:23:24.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/collection/" title="collection">collection</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <p><center><br>本章是对java中集合相关知识的总结<br></center><br>
+            
+            <p class="more">
+                <a href="/2017/05/27/java-collection/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/java-collection/" title="Java集合知识总结">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/algorithm/">算法设计与分析</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/algorithm-InsertSort /">
+    		插入排序(InsertSort)之Java实现
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T11:23:26.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/InsertSort/" title="InsertSort">InsertSort</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <p><center><br>有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序，这个时候就要用到一种新的排序方法——插入排序法,插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)。是稳定的排序方法。插入算法把要排序的数组分成两部分：第一部分包含了这个数组的所有元素，但将最后一个元素除外（让数组多一个空间才有插入的位置），而第二部分就只包含这一个元素（即待插入元素）。在第一部分排序完成后，再将这个最后元素插入到已排好序的第一部分中。<br></center><br>
+            
+            <p class="more">
+                <a href="/2017/05/27/algorithm-InsertSort /">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/algorithm-InsertSort /" title="插入排序(InsertSort)之Java实现">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/android/">安卓</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/circle-pie/">
+    		定制向外延伸直线+文字的饼图
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T11:23:26.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/android/" title="android">android</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <h3 id="今天抽空记录一下自己之前实训时候写的一个安卓的饼图UI组件"><a href="#今天抽空记录一下自己之前实训时候写的一个安卓的饼图UI组件" class="headerlink" title="今天抽空记录一下自己之前实训时候写的一个安卓的饼图UI组件"></a><center>今天抽空记录一下自己之前实训时候写的一个安卓的饼图UI组件</center></h3>
+            
+            <p class="more">
+                <a href="/2017/05/27/circle-pie/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/circle-pie/" title="定制向外延伸直线+文字的饼图">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/algorithm/">算法设计与分析</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/algorithm-dynamic-programming/">
+    		算法设计与分析之动态规划（投资问题）
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T11:23:26.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <p>复习了一下算法中的动态规划的知识，顺带将以前C写的投资问题用java重新实现了一遍，写博客记录一下2333！<br>
+            
+            <p class="more">
+                <a href="/2017/05/27/algorithm-dynamic-programming/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/algorithm-dynamic-programming/" title="算法设计与分析之动态规划（投资问题）">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/algorithm/">算法设计与分析</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/algorithm-dp-bag/">
+    		算法设计与分析之动态规划（0/1背包问题）
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T11:23:26.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <center><br>今天复习的算法题是0/1背包问题，用的动态规划的解法！<br></center><br>
+            
+            <p class="more">
+                <a href="/2017/05/27/algorithm-dp-bag/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/algorithm-dp-bag/" title="算法设计与分析之动态规划（0/1背包问题）">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+        <!-- 文章 -->
+<article class="post">
+    <header>
+        <!-- 标签这有且只能显示一个 -->
+        
+        <a class="cat-link" href="/categories/algorithm/">算法设计与分析</a>
+        
+        <!-- 文章标题 -->
+        
+    <h3 class="post-title">
+    	<a href="/2017/05/27/algorithm-BubbleSort/">
+    		冒泡排序(BubbleSort)之Java实现
+    	</a>
+    </h3>
+
+    </header>
+    <p class="post-meta">
+        wwj 发表于
+        <time datetime="2017-05-27T11:23:26.000Z">2017-05-27</time>
+        &nbsp;&nbsp;
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/BubbleSort/" title="BubbleSort">BubbleSort</a>
+    
+
+        </span>
+    </p>
+
+    <div class="post-content">
+        <div class="post-excerpt">
+            
+                <p><center><br>冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。<br>它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。<br>冒泡排序最好最坏的时间复杂度均为O(n²)。<br></center><br>
+            
+            <p class="more">
+                <a href="/2017/05/27/algorithm-BubbleSort/">阅读剩下更多</a>
+            </p>
+        </div>
+        <div class="post-thumbnail" data-img="">
+            <a href="/2017/05/27/algorithm-BubbleSort/" title="冒泡排序(BubbleSort)之Java实现">
+                
+                    <img class="thumbnail" src="/img/default.png" data-echo="/img/thumbnail/7.jpg" alt="默认配图" >
+                
+            </a>
+        </div>
+    </div>
+</article>
+
+    
+
+    
+    <nav class="page-navigator">
+        <span class="page-number current">1</span><a class="page-number" href="/archives/2017/05/page/2/">2</a><a class="extend next" rel="next" href="/archives/2017/05/page/2/">后一页</a>
+    </nav>
+    
+
+
+            </div>
+
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+    <section class="widget">
+        <h3 class="widget-hd"><strong>文章分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+    <li>
+        <a href="/categories/algorithm/">算法设计与分析</a>
+        <span class="badge">(6)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/android/">安卓</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/数据库/">数据库</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/">Web技术</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/hadoop/">大数据</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Jvm/">Jvm</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/生活琐事/">生活琐事</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/设计模式/">设计模式</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Java/">Java</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item" href="/tags/BinarySearch/" title="BinarySearch">BinarySearch (2)</a>
+  
+    <a class="tag-item" href="/tags/InsertSort/" title="InsertSort">InsertSort (1)</a>
+  
+    <a class="tag-item" href="/tags/BubbleSort/" title="BubbleSort">BubbleSort (1)</a>
+  
+    <a class="tag-item" href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming (2)</a>
+  
+    <a class="tag-item" href="/tags/android/" title="android">android (1)</a>
+  
+    <a class="tag-item" href="/tags/database/" title="database">database (1)</a>
+  
+    <a class="tag-item" href="/tags/hadoop/" title="hadoop">hadoop (1)</a>
+  
+    <a class="tag-item" href="/tags/jvm/" title="jvm">jvm (1)</a>
+  
+    <a class="tag-item" href="/tags/design-pattern/" title="design-pattern">design-pattern (1)</a>
+  
+    <a class="tag-item" href="/tags/collection/" title="collection">collection (1)</a>
+  
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://1996.one/" target="_blank" title="技术博客">江南-个人博客</a>
+        </li>
+    
+</ul>
+    </section>
+    
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+    &copy;
+    
+        2016-2018
+    
+
+    <a href="/">Father Loves You</a>
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+</body>
+</html>

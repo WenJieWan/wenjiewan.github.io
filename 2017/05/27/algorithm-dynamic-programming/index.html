@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
+    
+    <title>算法设计与分析之动态规划（投资问题） | 个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" >
+    <meta name="keywords" content="前端, Web, 后端,ML" >
+    <meta name="description" content="万文杰的个人小站" >
+
+    
+    <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml" >
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" >
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?fd459238242776d173cdc64918fb32f2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</head>
+
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">个人博客</span>
+                    <span class="description">人生如逆旅，我亦是行人</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2017/05/27/algorithm-dynamic-programming/index.html" class="item ">
+                <a href="/" title="首页" class="icon-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2017/05/27/algorithm-dynamic-programming/index.html" class="item ">
+                <a href="/lab/" title="实验室" class="icon-lab">&nbsp;实验室</a>
+            </li>
+            
+            <li rel="/2017/05/27/algorithm-dynamic-programming/index.html" class="item ">
+                <a href="/about/" title="关于" class="icon-about">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2017/05/27/algorithm-dynamic-programming/index.html" class="item ">
+                <a href="/comment/" title="留言" class="icon-comment">&nbsp;留言</a>
+            </li>
+            
+        </ul>
+        <div class="profile clearfix">
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/WenJieWan" target="_blank">Github</a>
+                        |
+                    
+                        <a href="https://pages.coding.me" target="_blank">Hosted by Coding Pages</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://www.weibo.com/u/2813992720" class="sinaweibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                    <!-- <a href="javascript: void(0);" class="wechat">
+                        <b>■</b>
+                        公众号
+                        <span class="popover">
+                            <img src="/img/wechat_mp.jpg" width="120" height="120" alt="我的微信订阅号">
+                            <i class="arrow"></i>
+                        </span>
+                    </a> -->
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/img/wwj.jpg" alt="avatar" title="Jelon" >
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+    <header class="text-center">
+        <h3 class="post-title"><span>算法设计与分析之动态规划（投资问题）</span></h3>
+    </header>
+    <p class="post-meta text-center">
+        wwj 发表于
+        <time datetime="2017-05-27T11:23:26.000Z">2017-05-27</time>
+    </p>
+    <div class="post-content">
+        <p>复习了一下算法中的动态规划的知识，顺带将以前C写的投资问题用java重新实现了一遍，写博客记录一下2333！<br><a id="more"></a></p>
+<h2 id="题目：投资问题"><a href="#题目：投资问题" class="headerlink" title="题目：投资问题"></a>题目：投资问题</h2><h2 id="内容：设总资源数为m，工程个数为n。给每个工程投资不同，所获得的利润也不同。现给定各个工程的资源利润表和资源总数，问-如何分配资源，才能获得最大利润。"><a href="#内容：设总资源数为m，工程个数为n。给每个工程投资不同，所获得的利润也不同。现给定各个工程的资源利润表和资源总数，问-如何分配资源，才能获得最大利润。" class="headerlink" title="内容：设总资源数为m，工程个数为n。给每个工程投资不同，所获得的利润也不同。现给定各个工程的资源利润表和资源总数，问:如何分配资源，才能获得最大利润。"></a>内容：设总资源数为m，工程个数为n。给每个工程投资不同，所获得的利润也不同。现给定各个工程的资源利润表和资源总数，问:如何分配资源，才能获得最大利润。</h2><h3 id="下图是3项工程的资源利润表"><a href="#下图是3项工程的资源利润表" class="headerlink" title="下图是3项工程的资源利润表"></a>下图是3项工程的资源利润表</h3><center><br>    <img src="/images/show/invest.png" width="500"><br></center>
+
+<p>表中给出了第i项工程分配资源数为x时所能获得的利润gi(m)</p>
+<h3 id="还是记得动态规划的解法吗？复习一下"><a href="#还是记得动态规划的解法吗？复习一下" class="headerlink" title="还是记得动态规划的解法吗？复习一下"></a>还是记得动态规划的解法吗？复习一下</h3><h4 id="动态规划法设计步骤"><a href="#动态规划法设计步骤" class="headerlink" title="动态规划法设计步骤"></a>动态规划法设计步骤</h4><p>  ① 找出最优解的性质,并刻画其结构 (最优子结构) 特征.<br>  ② 递归地定义最优值, 导出递推公式.<br>  ③ 以自底向上的方式计算最优值.<br>  ④ 根据计算最优值时得到的信息,构造最优解.</p>
+<h4 id="对于给出的资源利润表进行寻找递推公式"><a href="#对于给出的资源利润表进行寻找递推公式" class="headerlink" title="对于给出的资源利润表进行寻找递推公式"></a>对于给出的资源利润表进行寻找递推公式</h4><p>记 Fn(a)为给n个工程投资资源数为a时可获得的最大利润,则有：<br>      函数：Fn(a)=max{G1(x1)+G2(x2)+…Gn(xn)}<br>       区域：x1+x2+…xn=a<br>如果给第n项工程投资x，给前n-1项工程投资a-x，则<br>    Fn(a)=max {Fn-1(a-x)+ Gn(x)}<br>             X∈(0,1,…,a)<br> 记 Fk(z)为给k个工程投资总资源数为z时可以获得的最大利润，则有递推公式：<br>        Fk(z)= max {Fk-1(z-x)+ Gk(x)}   Z∈(0,1,…,a)<br>             X∈(0,1,…,z)<br>        F1(z)= G1(z)</p>
+<h3 id="利用这一递推公式，我们可以得出该问题的核心求解算法。"><a href="#利用这一递推公式，我们可以得出该问题的核心求解算法。" class="headerlink" title="利用这一递推公式，我们可以得出该问题的核心求解算法。"></a>利用这一递推公式，我们可以得出该问题的核心求解算法。</h3><h4 id="变量解释："><a href="#变量解释：" class="headerlink" title="变量解释："></a>变量解释：</h4><pre><code>m代表总额度，n代表总工程数
+g[i][j]代表第i个工程被分配j资源对应的利润表
+f[i][j]储存的数值代表前i项工程分配了j资源的最大利润值
+d[i][j]储存的是f[i][j]已经求出的情况下对应的第i项的资源分配额度。
+q[i]代表第i个工程被分配的资源额度，也就是说q数组保存最优解对应的每项工程的分配额度
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public  void  invest(int m,int n,int[][] g,int[][] f,int[][] d,int[] q)&#123;</span><br><span class="line">	//首先必须先对第一个工程的最大利润数值进行初始化</span><br><span class="line">	for(int j=0;j&lt;=m;j++)&#123;</span><br><span class="line">		//如果不初始化，进行第二项工程演算的时候会出错，第一项工程都为0就没法算最优解了</span><br><span class="line">		f[1][j]=g[1][j];</span><br><span class="line">		//一样，对d数组记录第一项工程分配额度进行保存</span><br><span class="line">		d[1][j]=j;</span><br><span class="line">	&#125;</span><br><span class="line">	//开始从第二项工程进行计算最优解</span><br><span class="line">	for(int i=2;i&lt;=n;i++)&#123;</span><br><span class="line">		//自底向上遍历所有分配情况</span><br><span class="line">		for(int j=0;j&lt;=m;j++)&#123;</span><br><span class="line">			f[i][j]=0;//初始化第i项分配j资源的最大利润值</span><br><span class="line">			//遍历前一项工程的分配K的组合利润值</span><br><span class="line">			for(int k=0;k&lt;=j;k++)&#123;</span><br><span class="line">				int sum=f[i-1][j-k]+g[i][k];//计算前一项工程(j-k)资源是最大利润+本项K资源的数值</span><br><span class="line">				if(sum&gt;f[i][j])&#123;//保留最大情况</span><br><span class="line">					f[i][j]=sum;//赋值最大利润值</span><br><span class="line">					d[i][j]=k;//记录分配值</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	/*到这里每次递增算工程的时候，前i项工程的最优解已被算出，重复这个循环过程知道i达到n，</span><br><span class="line">	那么总体最优解就算好了，只不过这个最优解的组合情况为被提取出来，只是保存在d数组中需要下面的往回寻找来筛选出来。</span><br><span class="line">	*/</span><br><span class="line">	//开始构建最优解</span><br><span class="line">	int s=m;//初始化s为m分配数</span><br><span class="line">	q[n]=d[n][m];//q[n]保存计算到最后一个工程的最优分配额，这个应该毋庸置疑的</span><br><span class="line">	for(int i=n-1;i&gt;0;i--)&#123; //初始化i=n-1,从倒数第二项往前遍历查找最优解</span><br><span class="line">		s = s-q[i+1];	//前一项最优解的分配总额度</span><br><span class="line">		q[i] = d[i][s]; //记录当前工程被分配的资源数</span><br><span class="line">	&#125;</span><br><span class="line">	//到此最优解已构建完成，输出q数组即可</span><br><span class="line">	System.out.println(&quot;最大利润值为：&quot;+f[n][m]);</span><br><span class="line">	System.out.println(&quot;最优解情况：&quot;);</span><br><span class="line">	for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">		System.out.println(&quot;第&quot;+i+&quot;工程分配资源数为：&quot;+q[i]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="下面是main函数的数据初始化代码"><a href="#下面是main函数的数据初始化代码" class="headerlink" title="下面是main函数的数据初始化代码"></a>下面是main函数的数据初始化代码</h3><pre>
+    <code>
+    public static void main(String[] args) {
+        //构建工程数量与资源数量对应的利润关系表
+        int m,n;//m代表总额度，n代表总工程数
+        n=3;//n=1,2,3...代表工程1，2，3
+        m=8;//m=0,1,2,3...代表分配额度0，1，2，3
+        //由于数组都是从0开始，为了方便观察，所以第一行我们不用，需要n+1分配空间，额度为0需要考虑所以m+1
+        int[][] g=new int[n+1][m+1];//g[i][j]代表第i个工程被分配j资源对应的利润表
+        int[][] f=new int[n+1][m+1];//f[i][j]储存的数值代表前i项工程分配了j资源的最大利润值
+        int[][] d=new int[n+1][m+1];//d[i][j]储存的是f[i][j]已经求出的情况下对应的第i项的资源分配额度。
+        int[] q=new int[n+1];//q[i]代表第i个工程被分配的资源额度，也就是说q数组保存最优解对应的每项工程的分配额度
+        //初始化工程对应资源的利润数据
+        //这里我就偷个懒，不根据初始化好的大小进行一个个录入了，直接就重新赋值初始了
+        g=new int[][]&#123;&#123;0,0,0,0,0,0,0,0,0&#125;,
+            &#123;0,5,15,40,80,90,95,98,100&#125;,
+            &#123;0,5,15,40,60,70,73,74,75&#125;,
+            &#123;0,4,26,40,50,51,52,53,54&#125;&#125;;
+
+        DynamicProgramming dp = new DynamicProgramming();
+        //设置要求的分配额度下的最优解情况
+        int num=7;
+        //开始动态规划运算
+        dp.invest(num, n, g, f, d, q);
+    }
+
+    </code>
+</pre>
+
+<h3 id="这是运行结果图"><a href="#这是运行结果图" class="headerlink" title="这是运行结果图"></a>这是运行结果图</h3><center><br>    <img src="/images/show/invest-result.png" width="500"><br></center>
+
+
+<p><a href="/files/DynamicProgramming.java" download="DynamicProgramming.java">点我下载java源码文件</a></p>
+
+    </div>
+    <p class="post-meta">
+        <span class="post-cat">分类：
+            <a class="cat-link" href="/categories/algorithm/">算法设计与分析</a>
+        </span>
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming</a>
+    
+
+        </span>
+    </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href) + '&title=' + document.title + '&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: alert('请复制链接到微信并发送');" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href) + '&desc=Jelon个人博客&title=' + document.title + '&callback=' + encodeURIComponent(location.href));" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br >
+        <a href="/2017/05/27/circle-pie/">
+            
+                定制向外延伸直线+文字的饼图
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br >
+        <a href="/2017/05/27/algorithm-dp-bag/">
+            
+                算法设计与分析之动态规划（0/1背包问题）
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+  <script src="/js/comment.js"></script>
+  <div id="comments" class="comment">
+    <!--
+    <div class="sign-bar">
+      GitHub 已登录!
+      <span class="sign-link">登出</span>
+    </div>
+    <section class="box">
+      <div class="com-avatar"><img src="/img/jelon.jpg" alt="avatar"></div>
+      <div class="com-text">
+        <div class="main">
+          <textarea class="text-area-edited show" placeholder="欢迎评论！"></textarea>
+          <div class="text-area-preview"></div>
+        </div>
+        <div class="switch">
+          <div class="switch-item on">编辑</div>
+          <div class="switch-item">预览</div>
+        </div>
+        <div class="button">提交</div>
+      </div>
+    </section>
+    <section class="tips">注：评论支持 markdown 语法！</section>
+    <section class="list-wrap">
+      <ul class="list">
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">张德龙</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like liked">已赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">333333</div>
+          </div>
+        </li>
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">刘德华</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like">点赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">vvvvv</div>
+          </div>
+        </li>
+      </ul>
+      <div class="page-nav">
+        <a href="javascript: void(0);" class="item">1</a>
+        <a href="javascript: void(0);" class="item">2</a>
+        <a href="javascript: void(0);" class="item current">3</a>
+      </div>
+    </section>
+    -->
+  </div>
+  <script>
+  JELON.Comment({
+    container: 'comments',
+    label: 'algorithm-dynamic-programming' || '2017/05/27/algorithm-dynamic-programming/',
+    owner: 'WenJieWan',
+    repo: 'blog comment',
+    clientId: '6d08802276a031e7f11a',
+    clientSecret: 'a46611a3b44557c09219ef3e8a9cced3acafdcc0'
+  });
+  </script>
+
+
+            </div>
+
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+    <section class="widget">
+        <h3 class="widget-hd"><strong>文章分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+    <li>
+        <a href="/categories/algorithm/">算法设计与分析</a>
+        <span class="badge">(6)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/android/">安卓</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/数据库/">数据库</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/">Web技术</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/hadoop/">大数据</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Jvm/">Jvm</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/生活琐事/">生活琐事</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/设计模式/">设计模式</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Java/">Java</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item" href="/tags/BinarySearch/" title="BinarySearch">BinarySearch (2)</a>
+  
+    <a class="tag-item" href="/tags/InsertSort/" title="InsertSort">InsertSort (1)</a>
+  
+    <a class="tag-item" href="/tags/BubbleSort/" title="BubbleSort">BubbleSort (1)</a>
+  
+    <a class="tag-item" href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming (2)</a>
+  
+    <a class="tag-item" href="/tags/android/" title="android">android (1)</a>
+  
+    <a class="tag-item" href="/tags/database/" title="database">database (1)</a>
+  
+    <a class="tag-item" href="/tags/hadoop/" title="hadoop">hadoop (1)</a>
+  
+    <a class="tag-item" href="/tags/jvm/" title="jvm">jvm (1)</a>
+  
+    <a class="tag-item" href="/tags/design-pattern/" title="design-pattern">design-pattern (1)</a>
+  
+    <a class="tag-item" href="/tags/collection/" title="collection">collection (1)</a>
+  
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://1996.one/" target="_blank" title="技术博客">江南-个人博客</a>
+        </li>
+    
+</ul>
+    </section>
+    
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+    &copy;
+    
+        2016-2018
+    
+
+    <a href="/">Father Loves You</a>
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+</body>
+</html>
