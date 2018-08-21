@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
+    
+    <title>前端跨域解决方案 | 个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" >
+    <meta name="keywords" content="前端, Web, 后端,ML" >
+    <meta name="description" content="万文杰的个人小站" >
+
+    
+    <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml" >
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" >
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?fd459238242776d173cdc64918fb32f2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</head>
+
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">个人博客</span>
+                    <span class="description">人生如逆旅，我亦是行人</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/08/08/cors/index.html" class="item ">
+                <a href="/" title="首页" class="icon-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/08/08/cors/index.html" class="item ">
+                <a href="/lab/" title="实验室" class="icon-lab">&nbsp;实验室</a>
+            </li>
+            
+            <li rel="/2018/08/08/cors/index.html" class="item ">
+                <a href="/about/" title="关于" class="icon-about">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/08/08/cors/index.html" class="item ">
+                <a href="/comment/" title="留言" class="icon-comment">&nbsp;留言</a>
+            </li>
+            
+        </ul>
+        <div class="profile clearfix">
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/WenJieWan" target="_blank">Github</a>
+                        |
+                    
+                        <a href="https://pages.coding.me" target="_blank">Hosted by Coding Pages</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://www.weibo.com/u/2813992720" class="sinaweibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                    <!-- <a href="javascript: void(0);" class="wechat">
+                        <b>■</b>
+                        公众号
+                        <span class="popover">
+                            <img src="/img/wechat_mp.jpg" width="120" height="120" alt="我的微信订阅号">
+                            <i class="arrow"></i>
+                        </span>
+                    </a> -->
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/img/wwj.jpg" alt="avatar" title="Jelon" >
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+    <header class="text-center">
+        <h3 class="post-title"><span>前端跨域解决方案</span></h3>
+    </header>
+    <p class="post-meta text-center">
+        wwj 发表于
+        <time datetime="2018-08-08T11:10:11.076Z">2018-08-08</time>
+    </p>
+    <div class="post-content">
+        <h1 id="前端开发中常见的跨域问题的解决方案"><a href="#前端开发中常见的跨域问题的解决方案" class="headerlink" title="前端开发中常见的跨域问题的解决方案"></a>前端开发中常见的跨域问题的解决方案</h1><blockquote>
+<p>随着时代的进步，网站的开发模式从前后一体式逐渐向前后分离式推进，做前端请求数据调试的时候就不可避免的产生了跨域问题，现在针对各类开发情景下如何跨域给出一系列的解决方案，几乎适用于绝大部分。</p>
+</blockquote>
+<ul>
+<li><strong>Chrome跨域插件</strong> ：这是专门针对谷歌浏览器实现的跨域，通过跨域插件实现开放浏览器跨域功能；</li>
+<li><strong>后端请求设置cors</strong> ：通过后端在响应头设置允许跨域，从而来使得浏览器端的请求可以跨域；</li>
+<li><strong>请求代理服务器</strong> ：顾名思义，建立一个服务器专门来代理请求再转发出去；</li>
+<li><strong>jsonp跨域</strong> ：通过动态创建script，再请求一个带参网址实现跨域通信；</li>
+</ul>
+<hr>
+<p>[TOC]</p>
+<blockquote>
+<h5 id="Chrome跨域插件："><a href="#Chrome跨域插件：" class="headerlink" title="Chrome跨域插件："></a>Chrome跨域插件：</h5><p>简单易用、在开发测试情景下，只要使用chrome来打开就能解决所有跨域问题并不需要后端设置好跨域，但是一般生产环境中还是需要后端设置允许跨域才行，否则上线后功能无法使用哦！<br>安装流程：先到chrome应用商店输入 allow control 搜索插件，即可看到如下图<br><img src="http://blog-1252906623.file.myqcloud.com/G1BUP82DKF_6FT_GTCKBK%24A.png" alt="应用商店"></p>
+</blockquote>
+<p>由于我们只需要跨域，添加第一项即可，cors的插件商店里有很多，大家也可以安装其他的cors插件<br>我推荐安装的是大家普遍使用的那款版本</p>
+<p>安装完成后点击右上角的cross小图标，点击按钮开启跨域<br><img src="http://blog-1252906623.file.myqcloud.com/%5B%25QBHS%7D7B_Z%60__FJ3UHKCIQ.png" alt="跨域设置"></p>
+<p>此刻通过安装chrome插件实现跨域功能已经完成啦！</p>
+<blockquote>
+<h5 id="后端设置cors跨域："><a href="#后端设置cors跨域：" class="headerlink" title="后端设置cors跨域："></a>后端设置cors跨域：</h5><p>这是开发网站普遍使用的方式，从根本解决问题，也是生产中常用的方案！</p>
+</blockquote>
+<p>原始的方式是在响应头进行设置，这里以javaweb工程代码为例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表明它允许"http://xxx"发起跨域请求</span></span><br><span class="line">res.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>,</span><br><span class="line">      config.getInitParameter(<span class="string">"AccessControlAllowOrigin"</span>));</span><br><span class="line"><span class="comment">// 表明在xxx秒内，不需要再发送预检验请求，可以缓存该结果</span></span><br><span class="line">res.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>,</span><br><span class="line">      config.getInitParameter(<span class="string">"AccessControlAllowMethods"</span>));</span><br><span class="line"><span class="comment">// 表明它允许xxx的外域请求</span></span><br><span class="line">res.setHeader(<span class="string">"Access-Control-Max-Age"</span>,</span><br><span class="line">      config.getInitParameter(<span class="string">"AccessControlMaxAge"</span>));</span><br><span class="line"><span class="comment">// 表明它允许跨域请求包含xxx头</span></span><br><span class="line">res.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>,</span><br><span class="line">      config.getInitParameter(<span class="string">"AccessControlAllowHeaders"</span>));</span><br></pre></td></tr></table></figure></p>
+<p>如果采用springboot框架来做的工程就更简单了！使用一个java文件做好配置即可<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">corsFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">		CorsConfiguration config = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">		config.setAllowCredentials(<span class="keyword">true</span>);</span><br><span class="line">		config.addAllowedOrigin(<span class="string">"*"</span>);</span><br><span class="line">		config.addAllowedHeader(<span class="string">"*"</span>);</span><br><span class="line">		config.setAllowCredentials(<span class="keyword">true</span>);<span class="comment">//前后分离，开启后可以跨域传cookie值，来实现验证码，前端也要设置开启</span></span><br><span class="line">		config.addAllowedMethod(<span class="string">"OPTION"</span>);</span><br><span class="line">		config.addAllowedMethod(<span class="string">"GET"</span>);</span><br><span class="line">		config.addAllowedMethod(<span class="string">"POST"</span>);</span><br><span class="line">		config.addAllowedMethod(<span class="string">"PUT"</span>);</span><br><span class="line">		config.addAllowedMethod(<span class="string">"HEAD"</span>);</span><br><span class="line">		config.addAllowedMethod(<span class="string">"DELETE"</span>);</span><br><span class="line">		source.registerCorsConfiguration(<span class="string">"/**"</span>, config);</span><br><span class="line">		FilterRegistrationBean bean = <span class="keyword">new</span> FilterRegistrationBean(<span class="keyword">new</span> CorsFilter(source));</span><br><span class="line">		bean.setOrder(<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> WebMvcConfigurer <span class="title">mvcConfigurer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> WebMvcConfigurerAdapter() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">				registry.addMapping(<span class="string">"/**"</span>).allowedMethods(<span class="string">"GET"</span>, <span class="string">"PUT"</span>, <span class="string">"POST"</span>, <span class="string">"GET"</span>, <span class="string">"OPTIONS"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>spring的设置也是类似的，直接使用注解方式即可解决，使用@CrossOrigin<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CrossOrigin</span>(maxAge = <span class="number">3600</span>)</span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CrossOrigin</span>(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<h5 id="请求代理服务器："><a href="#请求代理服务器：" class="headerlink" title="请求代理服务器："></a>请求代理服务器：</h5><p>由于同源策略是存在于浏览器端的存在，所以这种现象并不存在于服务端，代理服务器的作用就是做一个请求数据的中转，通过浏览器请求中间代理服务器，代理请求完目标数据再原路返回给请求端，就这样实现了中转，但是同样浏览器访问代理服务器会有跨域问题，所以代理服务器只要以后端cors的形式设置好了跨域即可传回给客户端数据。</p>
+</blockquote>
+<p><strong>这么做的需求不仅仅可以做跨域，还可以跨域获取别人网站的数据，如果你的网站想请求别人网站数据，别人又不开放WS或者跨域，你就无法正常获取数据，使用代理服务器是一种非常好的解决方式。</strong></p>
+<p>如下提供一种基于nodejs结合httpProxy模块实现的简单代理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> httpProxy = <span class="built_in">require</span>(<span class="string">'http-proxy'</span>); </span><br><span class="line"><span class="keyword">var</span> proxy = httpProxy.createProxyServer(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">proxy.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, req, res</span>) </span>&#123; </span><br><span class="line">    res.writeHead(<span class="number">500</span>, &#123; </span><br><span class="line">    <span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span> </span><br><span class="line">    &#125;); </span><br><span class="line">    res.end(<span class="string">'500'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'*'</span>, proxyer);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">proxyer</span>(<span class="params">req,res,next</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> host = req.headers.host, ip = req.headers[<span class="string">'x-forwarded-for'</span>] || req.connection.remoteAddress; </span><br><span class="line">	host = host.split(<span class="string">':'</span>);</span><br><span class="line">    <span class="keyword">var</span> port = host.length &gt; <span class="number">1</span> ? host[<span class="number">1</span>] : <span class="number">80</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"client ip:"</span> + ip + <span class="string">", host:"</span> + host +<span class="string">", port:"</span>+port); </span><br><span class="line">	<span class="keyword">delete</span> req.headers.host;<span class="comment">//一定要把host删除，不然会出现404，我在这里踩了好久的坑！</span></span><br><span class="line">	<span class="comment">//响应头设置跨域</span></span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"X-Requested-With"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Methods"</span>,<span class="string">"PUT,POST,GET,DELETE,OPTIONS"</span>);</span><br><span class="line">    <span class="keyword">switch</span>(port)&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'8765'</span>: </span><br><span class="line">	   proxy.web(req, res, &#123;<span class="attr">target</span>: <span class="string">'http://m.manhuatai.com'</span>&#125;);</span><br><span class="line">	   <span class="keyword">break</span>; </span><br><span class="line">	<span class="keyword">case</span> <span class="string">'8764'</span>: </span><br><span class="line">	   proxy.web(req, res, &#123;<span class="attr">target</span>: <span class="string">'http://www.baidu.com'</span>&#125;); </span><br><span class="line">	   <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>: </span><br><span class="line">      res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span> &#125;); </span><br><span class="line">      res.end(<span class="string">'你访问的是代理服务器，但是代理域名规则找不到你的请求!'</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//你如果有需要可以设置监听多个端口，返回不同地址的数据</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"proxy listening on port 8765"</span>) </span><br><span class="line">app.listen(<span class="number">8765</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"proxy listening on port 8764"</span>) </span><br><span class="line">app.listen(<span class="number">8764</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h5 id="jsonp跨域"><a href="#jsonp跨域" class="headerlink" title="jsonp跨域:"></a>jsonp跨域:</h5><p>通常为了减轻web服务器的负载，我们把js、css，img等静态资源分离到另一台独立域名的服务器上，在html页面中再通过相应的标签从不同域名下加载静态资源，而被浏览器允许，基于此原理，我们可以通过动态创建script，再请求一个带参网址实现跨域通信。</p>
+</blockquote>
+<p><strong>这种方式存在的缺点:只能实现get一种请求，并且只能返回json格式的数据，如果是非json格式会解析报错</strong></p>
+<p>1.）原生实现：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">   script.type = <span class="string">'text/javascript'</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 传参并指定回调执行函数为onBack</span></span><br><span class="line">   script.src = <span class="string">'http://www.demo2.com:8080/login?user=admin&amp;callback=onBack'</span>;</span><br><span class="line">   <span class="built_in">document</span>.head.appendChild(script);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 回调执行函数</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">onBack</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">       alert(<span class="built_in">JSON</span>.stringify(res));</span><br><span class="line">   &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.）jquery ajax：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">'http://www.demo2.com:8080/login'</span>,</span><br><span class="line">    type: <span class="string">'get'</span>,</span><br><span class="line">    dataType: <span class="string">'jsonp'</span>,  <span class="comment">// 请求方式为jsonp</span></span><br><span class="line">    jsonpCallback: <span class="string">"onBack"</span>,    <span class="comment">// 自定义回调函数名</span></span><br><span class="line">    data: &#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>3.）node下 jsonp库：<br>jsonp(url, opts, fn)</p>
+<p>4.iframe的方式，这里就不赘述了！</p>
+
+    </div>
+    <p class="post-meta">
+        <span class="post-cat">分类：
+            <a class="cat-link" href="/categories/Web技术/">Web技术</a>|<a class="cat-link" href="/categories/Web技术/前端/">前端</a>
+        </span>
+        <span class="post-tags">
+            标签：
+            
+        </span>
+    </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href) + '&title=' + document.title + '&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: alert('请复制链接到微信并发送');" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href) + '&desc=Jelon个人博客&title=' + document.title + '&callback=' + encodeURIComponent(location.href));" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br >
+        <a href="javascript: void(0);">没有上一篇了</a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br >
+        <a href="/2017/05/27/jvm_of_reference/">
+            
+                深入JVM之Java引用类型
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+  <script src="/js/comment.js"></script>
+  <div id="comments" class="comment">
+    <!--
+    <div class="sign-bar">
+      GitHub 已登录!
+      <span class="sign-link">登出</span>
+    </div>
+    <section class="box">
+      <div class="com-avatar"><img src="/img/jelon.jpg" alt="avatar"></div>
+      <div class="com-text">
+        <div class="main">
+          <textarea class="text-area-edited show" placeholder="欢迎评论！"></textarea>
+          <div class="text-area-preview"></div>
+        </div>
+        <div class="switch">
+          <div class="switch-item on">编辑</div>
+          <div class="switch-item">预览</div>
+        </div>
+        <div class="button">提交</div>
+      </div>
+    </section>
+    <section class="tips">注：评论支持 markdown 语法！</section>
+    <section class="list-wrap">
+      <ul class="list">
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">张德龙</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like liked">已赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">333333</div>
+          </div>
+        </li>
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">刘德华</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like">点赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">vvvvv</div>
+          </div>
+        </li>
+      </ul>
+      <div class="page-nav">
+        <a href="javascript: void(0);" class="item">1</a>
+        <a href="javascript: void(0);" class="item">2</a>
+        <a href="javascript: void(0);" class="item current">3</a>
+      </div>
+    </section>
+    -->
+  </div>
+  <script>
+  JELON.Comment({
+    container: 'comments',
+    label: 'cors' || '2018/08/08/cors/',
+    owner: 'WenJieWan',
+    repo: 'blog comment',
+    clientId: '6d08802276a031e7f11a',
+    clientSecret: 'a46611a3b44557c09219ef3e8a9cced3acafdcc0'
+  });
+  </script>
+
+
+            </div>
+
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+    <section class="widget">
+        <h3 class="widget-hd"><strong>文章分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+    <li>
+        <a href="/categories/algorithm/">算法设计与分析</a>
+        <span class="badge">(6)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/">Web技术</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/android/">安卓</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/数据库/">数据库</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Jvm/">Jvm</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/前端/">前端</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/hadoop/">大数据</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/设计模式/">设计模式</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Java/">Java</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item" href="/tags/InsertSort/" title="InsertSort">InsertSort (1)</a>
+  
+    <a class="tag-item" href="/tags/BubbleSort/" title="BubbleSort">BubbleSort (1)</a>
+  
+    <a class="tag-item" href="/tags/BinarySearch/" title="BinarySearch">BinarySearch (2)</a>
+  
+    <a class="tag-item" href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming (2)</a>
+  
+    <a class="tag-item" href="/tags/android/" title="android">android (1)</a>
+  
+    <a class="tag-item" href="/tags/database/" title="database">database (1)</a>
+  
+    <a class="tag-item" href="/tags/jvm/" title="jvm">jvm (1)</a>
+  
+    <a class="tag-item" href="/tags/hadoop/" title="hadoop">hadoop (1)</a>
+  
+    <a class="tag-item" href="/tags/design-pattern/" title="design-pattern">design-pattern (1)</a>
+  
+    <a class="tag-item" href="/tags/collection/" title="collection">collection (1)</a>
+  
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://1996.one/" target="_blank" title="技术博客">江南-个人博客</a>
+        </li>
+    
+</ul>
+    </section>
+    
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+    &copy;
+    
+        2016-2018
+    
+
+    <a href="/">Father Loves You</a>
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+</body>
+</html>
