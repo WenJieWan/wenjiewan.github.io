@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
+    
+    <title>梯度下降算法（gradient descent） | 个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" >
+    <meta name="keywords" content="前端, Web, 后端,ML" >
+    <meta name="description" content="万文杰的个人小站" >
+
+    
+    <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml" >
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" >
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?fd459238242776d173cdc64918fb32f2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</head>
+
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">个人博客</span>
+                    <span class="description">人生如逆旅，我亦是行人</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/08/23/gradient_desent/index.html" class="item ">
+                <a href="/" title="首页" class="icon-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/08/23/gradient_desent/index.html" class="item ">
+                <a href="/lab/" title="实验室" class="icon-lab">&nbsp;实验室</a>
+            </li>
+            
+            <li rel="/2018/08/23/gradient_desent/index.html" class="item ">
+                <a href="/about/" title="关于" class="icon-about">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/08/23/gradient_desent/index.html" class="item ">
+                <a href="/comment/" title="留言" class="icon-comment">&nbsp;留言</a>
+            </li>
+            
+        </ul>
+        <div class="profile clearfix">
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/WenJieWan" target="_blank">Github</a>
+                        |
+                    
+                        <a href="https://pages.coding.me" target="_blank">Hosted by Coding Pages</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://www.weibo.com/u/2813992720" class="sinaweibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                    <!-- <a href="javascript: void(0);" class="wechat">
+                        <b>■</b>
+                        公众号
+                        <span class="popover">
+                            <img src="/img/wechat_mp.jpg" width="120" height="120" alt="我的微信订阅号">
+                            <i class="arrow"></i>
+                        </span>
+                    </a> -->
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/img/wwj.jpg" alt="avatar" title="Jelon" >
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+    <header class="text-center">
+        <h3 class="post-title"><span>梯度下降算法（gradient descent）</span></h3>
+    </header>
+    <p class="post-meta text-center">
+        wwj 发表于
+        <time datetime="2018-08-23T05:11:59.831Z">2018-08-23</time>
+    </p>
+    <div class="post-content">
+        <h1 id="梯度下降算法（gradient-descent）"><a href="#梯度下降算法（gradient-descent）" class="headerlink" title="梯度下降算法（gradient descent）"></a>梯度下降算法（gradient descent）</h1><p><strong>梯度下降法：</strong>是一个用于求解线性函数局部最优解的最优化算法，使用梯度下降法找到一个函数的局部极小值，必须向函数上当前点对应梯度（或者是近似梯度）的反方向的规定步长距离点进行迭代搜索。如果相反地向梯度正方向迭代进行搜索，则会接近函数的局部极大值点；这个过程则被称为梯度上升法。它适用于线性回归和逻辑回归，也就是说(线性和非线性都可以用来求解，总之就是很牛逼就对了！)<br><a id="more"></a></p>
+<h3 id="算法过程如下所图"><a href="#算法过程如下所图" class="headerlink" title="算法过程如下所图"></a>算法过程如下所图</h3><p><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-132634%402x.png" alt=""><br>图中左边是算法思路，右边是拿线性回归模型作为举例对象,算法的工作原来是通过循环迭代所有样本来计算特征向量θ中的每个分量θj，通过调整m个θ分量使得最终的代价函数J（θ）达到最小值，这就是梯度下降法要做的事情！</p>
+<h3 id="梯度下降的几何形式"><a href="#梯度下降的几何形式" class="headerlink" title="梯度下降的几何形式"></a>梯度下降的几何形式</h3><p>下图为梯度下降的目的，找到函数J（θ）的最小值。<br>当函数J（θ）是一种比较简单化的线性函数就会呈现这种凸函数，求解出来的一定是最优解，不存在局部最小值。<br><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-135032%402x.png" alt=""></p>
+<p>但是通常工业界工程中遇到的求解函数都是高次方程等各种复杂方程式<br>呈现的都是山峰、山谷、山丘、山坡、平原等地势崎岖的现象，梯度下降由于起点位置不同会造成进入局部最小值的情况，这是很难避免的情况。<br><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-134929%402x.png" alt=""><br><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-134655%402x.png" alt=""></p>
+<h3 id="批量梯度下降法实现（python）"><a href="#批量梯度下降法实现（python）" class="headerlink" title="批量梯度下降法实现（python）"></a>批量梯度下降法实现（python）</h3><p>常规的梯度下降法也被称为批量梯度下降法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradDescent</span><span class="params">(dataMatIn, classLabels)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :param dataMatIn: 数据集</span></span><br><span class="line"><span class="string">    :param classLabels: 分类标签</span></span><br><span class="line"><span class="string">    :return:每个特征的最佳回归系数矩阵，特征是指输入矩阵的列</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dataMatrix = mat(dataMatIn)     <span class="comment">#mat()函数可以将数组转化为矩阵</span></span><br><span class="line">    labelMat = mat(classLabels).T       <span class="comment">#.T矩阵的转置，列向量现在转换为行向量</span></span><br><span class="line">    m, n = shape(dataMatrix)        <span class="comment">#数据集的行和列数</span></span><br><span class="line">    alpha = <span class="number">0.001</span>       <span class="comment">#学习率α = 步长</span></span><br><span class="line">    maxCycles = <span class="number">500</span>     <span class="comment">#迭代次数 = 循环次数</span></span><br><span class="line">    weights = ones((n, <span class="number">1</span>))      <span class="comment">#最佳回归系数 = 初始化为1的列向量</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(maxCycles):</span><br><span class="line">        h = sigmoid(dataMatrix * weights)       <span class="comment">#预测的类别 = 先计算Z = W*X，这个维度不用转置在计算sigmoid(Z)</span></span><br><span class="line">        error = labelMat - h        <span class="comment">#误差 = 真是类别和预测类别的差值</span></span><br><span class="line">        weights = weights - alpha * dataMatrix.T * error    <span class="comment">#梯度下降公式：w = w - 学习率 * 梯度，而梯度 = 误差 * 输入值矩阵，至于转置是看计算是否符合矩阵运算，才转置的</span></span><br><span class="line">    <span class="keyword">return</span> weights</span><br></pre></td></tr></table></figure>
+<h3 id="随机梯度下降法实现（梯度下降法改进）"><a href="#随机梯度下降法实现（梯度下降法改进）" class="headerlink" title="随机梯度下降法实现（梯度下降法改进）"></a>随机梯度下降法实现（梯度下降法改进）</h3><p>批量梯度下降是每迭代一步，都要计算训练集所有的数据，如果数据集很大，达到几十万甚至百万，那么可想而知这种方法的耗时很大和对计算机的算力要求很高！既然存在问题，自然而然就有缓解的方案，随机梯度下降法悠然而升。<br><br>随机梯度下降是通过每个样本来迭代更新一次，如果样本量很大的情况（例如几十万），那么可能只用其中几万条或者几千条的样本，就已经将theta迭代到最优解了，对比上面的批量梯度下降，迭代一次需要用到十几万训练样本，一次迭代不可能最优，如果迭代10次的话就需要遍历训练样本10次。<br><br>在占用少量算力的情况下就能得到差不多接近批量计算的结果，这是很爽的事儿。但是，SGD伴随的一个问题是噪音较BGD要多，使得SGD并不是每次迭代都向着整体最优化方向。不过，由于是随机的数据，使用多次随机数据计算并对比结果，存在可能避免进入局部最优的可能，这也在一定程度上缓解了批量下降进入局部最优的问题！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机梯度下降算法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradDescent</span><span class="params">(dataMatrix, classLabels)</span>:</span></span><br><span class="line">    m,n = shape(dataMatrix)</span><br><span class="line">    alpha = <span class="number">0.01</span></span><br><span class="line">    weights = ones(n)   <span class="comment">#初始化为1的数组</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        h = sigmoid(sum(dataMatrix[i]*weights)) <span class="comment"># 元素相乘再求和即w0x0+w1x1+w2x2</span></span><br><span class="line">        error = classLabels[i] - h</span><br><span class="line">        weights = weights - alpha * error * dataMatrix[i]</span><br><span class="line">    <span class="keyword">return</span> weights</span><br></pre></td></tr></table></figure>
+<h3 id="自动变化的学习速率（改进的随机梯度下降法）"><a href="#自动变化的学习速率（改进的随机梯度下降法）" class="headerlink" title="自动变化的学习速率（改进的随机梯度下降法）"></a>自动变化的学习速率（改进的随机梯度下降法）</h3><p>无论是批量下降还是随机下降，学习速率依旧需要人为手动设置，这个学习速率的设置是完全需要凭借经验来一直调整的，如果设置过大就是在较小值之间来回跳而无法计算到最小值，如果设置过小，则会消耗大量的时间来等待，所以这是一个经验问题。自动变化的学习速率的出现自然就拯救了我们这些刚入门的小白啦！！！话不多话，直接上代码！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 改进的随机梯度下降法</span></span><br><span class="line"><span class="comment"># alpha随着迭代次数不断减小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradDescent1</span><span class="params">(dataMatrix, classLabels, numIter=<span class="number">150</span>)</span>:</span></span><br><span class="line">    m,n = shape(dataMatrix)</span><br><span class="line">    weights = ones(n)   <span class="comment">#initialize to all ones</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(numIter):</span><br><span class="line">        <span class="comment"># 原文 dataIndex = range(m)</span></span><br><span class="line">        dataIndex = list(range(m))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="comment"># 随机选择一个样本进行权重的更新</span></span><br><span class="line">            alpha = <span class="number">4</span>/(<span class="number">1.0</span>+j+i)+<span class="number">0.0001</span>    <span class="comment">#学习速度会根据迭代的进度进行变化</span></span><br><span class="line">            randIndex = int(random.uniform(<span class="number">0</span>,len(dataIndex)))<span class="comment">#go to 0 because of the constant</span></span><br><span class="line">            h = sigmoid(sum(dataMatrix[randIndex]*weights))</span><br><span class="line">            error = classLabels[randIndex] - h</span><br><span class="line">            weights = weights - alpha * error * dataMatrix[randIndex]</span><br><span class="line">            <span class="keyword">del</span>(dataIndex[randIndex])</span><br><span class="line">    <span class="keyword">return</span> weights</span><br></pre></td></tr></table></figure>
+<p><strong>alpha = 4/(1.0+j+i)+0.0001</strong><br><br>这句代码很重要，虽然自动变化，但是也是在限定的范围内进行变动，alpha的下降速度是先快后慢的，每次减少4/（i+j），在j特别小的时候也就是刚开始迭代时，下降速度是不严格的，下降很快，随着迭代的上升,分母变大，alpha会越来越小，下降速度也会越来越慢。代码中给的只是一个通常用的，4以及0.0001可以看实际情况做调整来提高下降速度。</p>
+<p><strong>实现梯度上升只需要将代码中的weights 减法计算变成加法计算即可</strong><br><strong>例如：weights = weights + alpha <em> error </em> dataMatrix[randIndex]</strong></p>
+
+    </div>
+    <p class="post-meta">
+        <span class="post-cat">分类：
+            <a class="cat-link" href="/categories/机器学习/">机器学习</a>|<a class="cat-link" href="/categories/机器学习/算法/">算法</a>
+        </span>
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/machine-learning/" title="machine learning">machine learning</a>
+    
+
+        </span>
+    </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href) + '&title=' + document.title + '&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: alert('请复制链接到微信并发送');" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href) + '&desc=Jelon个人博客&title=' + document.title + '&callback=' + encodeURIComponent(location.href));" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br >
+        <a href="javascript: void(0);">没有上一篇了</a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br >
+        <a href="/2018/08/08/cors/">
+            
+                前端跨域解决方案
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+  <script src="/js/comment.js"></script>
+  <div id="comments" class="comment">
+    <!--
+    <div class="sign-bar">
+      GitHub 已登录!
+      <span class="sign-link">登出</span>
+    </div>
+    <section class="box">
+      <div class="com-avatar"><img src="/img/jelon.jpg" alt="avatar"></div>
+      <div class="com-text">
+        <div class="main">
+          <textarea class="text-area-edited show" placeholder="欢迎评论！"></textarea>
+          <div class="text-area-preview"></div>
+        </div>
+        <div class="switch">
+          <div class="switch-item on">编辑</div>
+          <div class="switch-item">预览</div>
+        </div>
+        <div class="button">提交</div>
+      </div>
+    </section>
+    <section class="tips">注：评论支持 markdown 语法！</section>
+    <section class="list-wrap">
+      <ul class="list">
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">张德龙</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like liked">已赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">333333</div>
+          </div>
+        </li>
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">刘德华</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like">点赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">vvvvv</div>
+          </div>
+        </li>
+      </ul>
+      <div class="page-nav">
+        <a href="javascript: void(0);" class="item">1</a>
+        <a href="javascript: void(0);" class="item">2</a>
+        <a href="javascript: void(0);" class="item current">3</a>
+      </div>
+    </section>
+    -->
+  </div>
+  <script>
+  JELON.Comment({
+    container: 'comments',
+    label: 'gradient_desent' || '2018/08/23/gradient_desent/',
+    owner: 'WenJieWan',
+    repo: 'blog comment',
+    clientId: '6d08802276a031e7f11a',
+    clientSecret: 'a46611a3b44557c09219ef3e8a9cced3acafdcc0'
+  });
+  </script>
+
+
+            </div>
+
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+    <section class="widget">
+        <h3 class="widget-hd"><strong>文章分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+    <li>
+        <a href="/categories/algorithm/">算法设计与分析</a>
+        <span class="badge">(6)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/android/">安卓</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/">Web技术</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/数据库/">数据库</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/机器学习/">机器学习</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/hadoop/">大数据</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Jvm/">Jvm</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Web技术/前端/">前端</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/机器学习/算法/">算法</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/设计模式/">设计模式</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+    <li>
+        <a href="/categories/Java/">Java</a>
+        <span class="badge">(1)</span>
+    </li>
+    
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item" href="/tags/BinarySearch/" title="BinarySearch">BinarySearch (2)</a>
+  
+    <a class="tag-item" href="/tags/BubbleSort/" title="BubbleSort">BubbleSort (1)</a>
+  
+    <a class="tag-item" href="/tags/InsertSort/" title="InsertSort">InsertSort (1)</a>
+  
+    <a class="tag-item" href="/tags/dynamic-programming/" title="dynamic-programming">dynamic-programming (2)</a>
+  
+    <a class="tag-item" href="/tags/android/" title="android">android (1)</a>
+  
+    <a class="tag-item" href="/tags/前端/" title="前端">前端 (1)</a>
+  
+    <a class="tag-item" href="/tags/database/" title="database">database (1)</a>
+  
+    <a class="tag-item" href="/tags/machine-learning/" title="machine learning">machine learning (1)</a>
+  
+    <a class="tag-item" href="/tags/hadoop/" title="hadoop">hadoop (1)</a>
+  
+    <a class="tag-item" href="/tags/jvm/" title="jvm">jvm (1)</a>
+  
+    <a class="tag-item" href="/tags/design-pattern/" title="design-pattern">design-pattern (1)</a>
+  
+    <a class="tag-item" href="/tags/collection/" title="collection">collection (1)</a>
+  
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://1996.one/" target="_blank" title="技术博客">江南-个人博客</a>
+        </li>
+    
+        <li>
+            <a href="http://xueshiming.cn/" target="_blank" title="技术博客">小薛-个人博客</a>
+        </li>
+    
+</ul>
+    </section>
+    
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+    &copy;
+    
+        2016-2018
+    
+
+    <a href="/">Father Loves You</a>
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+</body>
+</html>
