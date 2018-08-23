@@ -124,7 +124,7 @@
         <time datetime="2018-08-23T05:11:59.831Z">2018-08-23</time>
     </p>
     <div class="post-content">
-        <h1 id="梯度下降算法（gradient-descent）"><a href="#梯度下降算法（gradient-descent）" class="headerlink" title="梯度下降算法（gradient descent）"></a>梯度下降算法（gradient descent）</h1><p><strong>梯度下降法：</strong>是一个用于求解线性函数局部最优解的最优化算法，使用梯度下降法找到一个函数的局部极小值，必须向函数上当前点对应梯度（或者是近似梯度）的反方向的规定步长距离点进行迭代搜索。如果相反地向梯度正方向迭代进行搜索，则会接近函数的局部极大值点；这个过程则被称为梯度上升法。它适用于线性回归和逻辑回归，也就是说(线性和非线性都可以用来求解，总之就是很牛逼就对了！)<br><a id="more"></a></p>
+        <h1 id="梯度下降算法（gradient-descent）"><a href="#梯度下降算法（gradient-descent）" class="headerlink" title="梯度下降算法（gradient descent）"></a>梯度下降算法（gradient descent）</h1><p><strong>梯度下降法：</strong>是一个用于求解函数局部最优解的最优化算法，使用梯度下降法找到一个函数的局部极小值，必须向函数上当前点对应梯度（或者是近似梯度）的反方向的规定步长距离点进行迭代搜索。如果相反地向梯度正方向迭代进行搜索，则会接近函数的局部极大值点；这个过程则被称为梯度上升法。它适用于线性回归和逻辑回归，也就是说(线性和非线性都可以用来求解，总之就是很牛逼就对了！)<br><a id="more"></a></p>
 <h3 id="算法过程如下所图"><a href="#算法过程如下所图" class="headerlink" title="算法过程如下所图"></a>算法过程如下所图</h3><p><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-132634%402x.png" alt=""><br>图中左边是算法思路，右边是拿线性回归模型作为举例对象,算法的工作原来是通过循环迭代所有样本来计算特征向量θ中的每个分量θj，通过调整m个θ分量使得最终的代价函数J（θ）达到最小值，这就是梯度下降法要做的事情！</p>
 <h3 id="梯度下降的几何形式"><a href="#梯度下降的几何形式" class="headerlink" title="梯度下降的几何形式"></a>梯度下降的几何形式</h3><p>下图为梯度下降的目的，找到函数J（θ）的最小值。<br>当函数J（θ）是一种比较简单化的线性函数就会呈现这种凸函数，求解出来的一定是最优解，不存在局部最小值。<br><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-135032%402x.png" alt=""></p>
 <p>但是通常工业界工程中遇到的求解函数都是高次方程等各种复杂方程式<br>呈现的都是山峰、山谷、山丘、山坡、平原等地势崎岖的现象，梯度下降由于起点位置不同会造成进入局部最小值的情况，这是很难避免的情况。<br><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-134929%402x.png" alt=""><br><img src="http://blog-1252906623.file.myqcloud.com/WX20180823-134655%402x.png" alt=""></p>
@@ -288,12 +288,12 @@
     </li>
     
     <li>
-        <a href="/categories/Web技术/">Web技术</a>
+        <a href="/categories/数据库/">数据库</a>
         <span class="badge">(1)</span>
     </li>
     
     <li>
-        <a href="/categories/数据库/">数据库</a>
+        <a href="/categories/Web技术/">Web技术</a>
         <span class="badge">(1)</span>
     </li>
     
@@ -341,9 +341,9 @@
         <!-- 文章标签 -->
 <div class="widget-bd tag-wrap">
   
-    <a class="tag-item" href="/tags/BinarySearch/" title="BinarySearch">BinarySearch (2)</a>
-  
     <a class="tag-item" href="/tags/BubbleSort/" title="BubbleSort">BubbleSort (1)</a>
+  
+    <a class="tag-item" href="/tags/BinarySearch/" title="BinarySearch">BinarySearch (2)</a>
   
     <a class="tag-item" href="/tags/InsertSort/" title="InsertSort">InsertSort (1)</a>
   
@@ -351,9 +351,9 @@
   
     <a class="tag-item" href="/tags/android/" title="android">android (1)</a>
   
-    <a class="tag-item" href="/tags/前端/" title="前端">前端 (1)</a>
-  
     <a class="tag-item" href="/tags/database/" title="database">database (1)</a>
+  
+    <a class="tag-item" href="/tags/前端/" title="前端">前端 (1)</a>
   
     <a class="tag-item" href="/tags/machine-learning/" title="machine learning">machine learning (1)</a>
   
