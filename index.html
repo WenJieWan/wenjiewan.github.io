@@ -1581,16 +1581,17 @@ TODO(https://crbug.com/852872): UI for offline suggested content is incomplete.
 		<style>
 		.heihei{
 			margin-left:200px;
-			display:hidden;
+			/*visibility: hidden;*/
+			opacity:0;
 		}
 		.heihei:hover{
-			background-color:yellow;
-			display:block;
+			/*visibility: visible;*/
+			opacity:0.01;
 		}
 		</style>
-        <button id="reload-button-mask" class="blue-button text-button heihei" onclick="window.location.href='http://106.15.50.172';" jsselect="reloadButton" jsvalues=".url:reloadUrl; .trackingId:reloadTrackingId" jscontent="msg" jstcache="5">重新加载</button>
-		<button id="reload-button" class="blue-button text-button" onclick="window.location.href='http://106.15.50.172';" jsselect="reloadButton" jsvalues=".url:reloadUrl; .trackingId:reloadTrackingId" jscontent="msg" jstcache="5">重新加载</button>
-        <button id="download-button" class="blue-button text-button" onclick="downloadButtonClick()" jsselect="downloadButton" jscontent="msg" jsvalues=".disabledText:disabledMsg" jstcache="6" style="display: none;">
+        <button id="reload-button-mask" class="text-button heihei" onclick="window.location.href='http://106.15.50.172';" jsselect="reloadButton" jsvalues=".url:reloadUrl; .trackingId:reloadTrackingId" jscontent="msg" jstcache="5">重新加载</button>
+		<button id="reload-button" class="blue-button text-button" onclick="trackClick(this.trackingId);
+                     reloadButtonClick(this.url);" jsselect="reloadButton" jsvalues=".url:reloadUrl; .trackingId:reloadTrackingId" jscontent="msg" jstcache="5">重新加载</button><button id="download-button" class="blue-button text-button" onclick="downloadButtonClick()" jsselect="downloadButton" jscontent="msg" jsvalues=".disabledText:disabledMsg" jstcache="6" style="display: none;">
         </button>
         <div id="save-page-for-later-button" class="hidden" jstcache="0">
           <a class="link-button" onclick="savePageLaterClick()" jsselect="savePageLater" jscontent="savePageMsg" jstcache="13" style="display: none;">
